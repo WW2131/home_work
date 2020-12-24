@@ -1,36 +1,80 @@
 package day01;
+
+import java.util.Scanner;
+
 /**
- * è¦æ±‚ç”¨æˆ·è¾“å…¥ä¸€ä¸ªè®¡ç®—è¡¨è¾¾å¼ï¼Œå¯ä»¥ä½¿ç”¨åŠ å‡ä¹˜é™¤ã€‚
- * åªå¤„ç†ä¸€æ¬¡è¿ç®—çš„ï¼Œä¸è¦æœ‰è¿ç»­åŠ å‡ä¹˜é™¤çš„è¡¨è¾¾å¼,ä¸”ä¸åšå°æ•°è®¡ç®—ã€‚(ä¾‹:1+2+3)
- * ä¾‹å¦‚:
+ * ÒªÇóÓÃ»§ÊäÈëÒ»¸ö¼ÆËã±í´ïÊ½£¬¿ÉÒÔÊ¹ÓÃ¼Ó¼õ³Ë³ı¡£
+ * Ö»´¦ÀíÒ»´ÎÔËËãµÄ£¬²»ÒªÓĞÁ¬Ğø¼Ó¼õ³Ë³ıµÄ±í´ïÊ½,ÇÒ²»×öĞ¡Êı¼ÆËã¡£(Àı:1+2+3)
+ * ÀıÈç:
  * 1+2
- * ç„¶åç»è¿‡å¤„ç†è®¡ç®—ç»“æœå¹¶è¾“å‡º:1+2=3
- * @author Bonnie
+ * È»ºó¾­¹ı´¦Àí¼ÆËã½á¹û²¢Êä³ö:1+2=3
  *
+ * @author Bonnie
  */
 public class Test06 {
-	public static void main(String[] args) {
-		
-	}
-	public static int parseInt(String str){
-		// æœ€åè¦ç”Ÿæˆçš„æ•°å­—
-		int num = 0;
-		// ä¸´æ—¶å˜é‡ï¼Œç”¨äºè®¡ç®—å¯¹åº”ä½æ•°çš„æ•°å­—
-		int flag = 0;
-		for (int i = 0; i < str.length(); i++) {
-			flag = (str.charAt(i) - 48);
-			/*
-			 * è¿™é‡Œæ˜¯å°†å¯¹åº”çš„æ•°å­—è®¡ç®—ä¸ºå¯¹åº”çš„ä½ï¼Œä¾‹å¦‚ç™¾ä½æ•°å­—å°±è¦ç”¨è¯¥æ•°å­—ä¹˜ä»¥10çš„2æ¬¡æ–¹
-			 * å¾—åˆ°
-			 * å¯ä»¥ç”¨Mathçš„ç›¸å…³æ–¹æ³•å¤„ç†(è‡ªè¡ŒæŸ¥çœ‹APIæ–‡æ¡£)
-			 */
-			for (int n = 0; n < str.length() - 1 - i; n++) {
-				flag *= 10;
-			}
-			num += flag;
-		}
-		return num;
-	}
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String expression = scanner.next();
+
+        CalculatorStack numStack = new CalculatorStack(10);
+        CalculatorStack operStack = new CalculatorStack(10);
+
+        int index = 0;
+        int num1 = 0;
+        int num2 = 0;
+        int oper = 0;
+        int res = 0;
+        char ch = ' ';
+        String keepNum = "";
+
+        while (true) {
+            ch = expression.substring(index, index + 1).charAt(0);
+            if (operStack.isOper(ch)) {
+                if (!operStack.isEmpty()) {
+                    if (operStack.priority(ch) <= operStack.priority(operStack.peek())) {
+                        num1 = numStack.pop();
+                        num2 = numStack.pop();
+                        oper = operStack.pop();
+                        res = numStack.cal(num1, num2, oper);
+                        numStack.push(res);
+                        operStack.push(ch);
+                    } else {
+                        operStack.push(ch);
+                    }
+                } else {
+                    operStack.push(ch);
+                }
+            } else {
+                keepNum += ch;
+                if (index == expression.length() - 1) {
+                    numStack.push(Integer.parseInt(keepNum));
+                } else {
+                    if (operStack.isOper(expression.substring(index + 1, index + 2).charAt(0))) {
+                        numStack.push(Integer.parseInt(keepNum));
+                        keepNum = "";
+                    }
+                }
+            }
+            index++;
+            if (index >= expression.length()) {
+                break;
+            }
+        }
+        while (true) {
+            if (operStack.isEmpty()) {
+                break;
+            }
+            num1 = numStack.pop();
+            num2 = numStack.pop();
+            oper = operStack.pop();
+            res = numStack.cal(num1, num2, oper);
+            numStack.push(res);
+        }
+        int res2 = numStack.pop();
+        System.out.printf("±í´ïÊ½%s = %d", expression, res2);
+    }
+
+
 }
 
 

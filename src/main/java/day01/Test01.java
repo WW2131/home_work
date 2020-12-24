@@ -1,4 +1,5 @@
 package day01;
+
 /**
  * 1:输出字符串"HelloWorld"的字符串长度
  * 2:输出"HelloWorld"中"o"的位置
@@ -9,28 +10,74 @@ package day01;
  * 7:输出"HelloWorld"中第6个字符"W"
  * 8:输出"HelloWorld"是否是以"h"开头和"ld"结尾的。
  * 9:将"HelloWorld"分别转换为全大写和全小写并输出。
- * @author Bonnie
  *
+ * @author Bonnie
  */
 public class Test01 {
-	public static void main(String[] args) {
-		String str = "HelloWorld";
-		test1(str);
-		//以下自行调用test2,test3...等方法。
-		System.out.println("dd");
-		System.out.println(04);
+    static String str = "HelloWorld";
 
-	}
-	/**
-	 * 以当前方法为例，下面继续编写test2,test3...等方法。
-	 * 每个方法中实现类描述中的一个需求。
-	 * 当前方法实现:1输出字符串"HelloWorld"的字符串长度
-	 * 
-	 * test2实现:2:输出"HelloWorld"中"o"的位置
-	 * 以此类推。
-	 * @param str
-	 */
-	public static void test1(String str){
-		
-	}
+    public static void main(String[] args) {
+        test1(str);
+        test2('o', 0);
+        test3(str);
+        test4(str);
+        test5(str);
+        str = "  Hello   ";
+        test6(str);
+        str = "HelloWorld";
+        test7(str);
+        test8(str);
+        test9(str);
+    }
+
+    /**
+     * 以当前方法为例，下面继续编写test2,test3...等方法。
+     * 每个方法中实现类描述中的一个需求。
+     * 当前方法实现:1输出字符串"HelloWorld"的字符串长度
+     * <p>
+     * test2实现:2:输出"HelloWorld"中"o"的位置
+     * 以此类推。
+     *
+     * @param str
+     */
+    public static void test1(String str) {
+        System.out.println("题目1：" + str.length());
+    }
+
+    public static void test2(char c, int n) {
+        n = str.indexOf(c, n);
+        System.out.print(n + " ");
+        if (n < str.lastIndexOf(c))
+            test2(c, n + 1);
+    }
+
+    public static void test3(String str) {
+        System.out.println(str.indexOf('o', 5));
+    }
+
+    public static void test4(String str) {
+        System.out.println(str.substring(0, 5));
+
+    }
+
+    public static void test5(String str) {
+        System.out.println(str.substring(5));
+    }
+
+    public static void test6(String str) {
+        System.out.println(str.trim());
+    }
+
+    public static void test7(String str) {
+        System.out.println(str.charAt(6));
+    }
+
+    public static void test8(String str) {
+        System.out.println(str.startsWith("h") && str.endsWith("ld"));
+    }
+
+    public static void test9(String str) {
+        System.out.println(str.toUpperCase() + " " + str.toLowerCase());
+    }
+
 }
