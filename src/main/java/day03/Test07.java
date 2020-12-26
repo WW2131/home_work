@@ -22,34 +22,43 @@ public class Test07 {
     public static void main(String[] args) throws ParseException {
         ArrayList<Emp> emps = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        String name = scanner.next();
-        int age = scanner.nextInt();
-        String gender = scanner.next();
-        int salary = scanner.nextInt();
-        String str = "\\d{4}\\-\\d{2}\\-\\d{2}";
-        String date;
-        while (true) {
-            date = scanner.next();
-            if(date.matches(str)){
-                break;
-            }else{
-                System.out.println("请输入正确的日期格式“yyyy-MM-dd”");
+        System.out.println("输入要输入的员工数：");
+        int n = scanner.nextInt();
+        int m = 0;
+        while (m < n) {
+            String name = scanner.next();
+            int age = scanner.nextInt();
+            String gender = scanner.next();
+            int salary = scanner.nextInt();
+            String str = "\\d{4}\\-\\d{2}\\-\\d{2}";
+            String date;
+            while (true) {
+                date = scanner.next();
+                if (date.matches(str)) {
+                    break;
+                } else {
+                    System.out.println("请输入正确的日期格式“yyyy-MM-dd”");
+                }
             }
-        }
-        Date hiredate = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Emp emp =  new Emp(name,age,gender,salary,simpleDateFormat.parse(date));
-        emps.add(new Emp("1",11,"nan",111,simpleDateFormat.parse(date)));
-        for(int i=0;i<emps.size();i++){
-            if(emps.get(i).equals(emp)){
-                System.out.println("员工也存在导入失败");
-            }else{
+            m++;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Emp emp = new Emp(name, age, gender, salary, simpleDateFormat.parse(date));
+            if (emps.isEmpty()) {
                 emps.add(emp);
-                break;
+            } else {
+                for (int i = 0; i < emps.size(); i++) {
+                    if (emps.get(i).equals(emp)) {
+                        System.out.println("员工也存在导入失败");
+                    } else {
+                        emps.add(emp);
+                        break;
+                    }
+                }
             }
         }
-        for(int i=0;i<emps.size();i++){
+        for (int i = 0; i < emps.size(); i++) {
             System.out.println(emps.get(i).toString());
         }
+
     }
 }
