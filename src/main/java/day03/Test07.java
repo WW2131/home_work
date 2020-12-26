@@ -43,8 +43,10 @@ public class Test07 {
         for(int i=0;i<emps.size();i++){
             if(emps.get(i).equals(emp)){
                 System.out.println("员工也存在导入失败");
-            }else
+            }else{
                 emps.add(emp);
+                break;
+            }
         }
         for(int i=0;i<emps.size();i++){
             System.out.println(emps.get(i).toString());

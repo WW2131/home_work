@@ -44,7 +44,7 @@ public class Emp {
     @Override
     public boolean equals(Object obj) {
         Emp emp = (Emp)obj;
-        return ((Emp) obj).name.equals(this.name);
+        return ((Emp) obj).name==this.name;
     }
 
     public Emp(String name, int age, String gender, int salary, Date hiredate) {
