@@ -25,6 +25,8 @@ public class Test07 {
         System.out.println("输入要输入的员工数：");
         int n = scanner.nextInt();
         int m = 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        emps.add(new Emp("1", 11, "nan", 111, simpleDateFormat.parse("2020-01-03")));
         while (m < n) {
             String name = scanner.next();
             int age = scanner.nextInt();
@@ -41,7 +43,7 @@ public class Test07 {
                 }
             }
             m++;
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
             Emp emp = new Emp(name, age, gender, salary, simpleDateFormat.parse(date));
             if (emps.isEmpty()) {
                 emps.add(emp);

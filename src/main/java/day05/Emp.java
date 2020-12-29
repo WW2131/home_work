@@ -23,7 +23,7 @@ import java.util.GregorianCalendar;
  * @author Bonnie
  *
  */
-public class Emp implements Comparable {
+public class Emp implements Comparable<Emp> {
 
     String name;
     int age;
@@ -47,7 +47,7 @@ public class Emp implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        day04.Emp emp = (day04.Emp) obj;
+        Emp emp = (Emp) obj;
         return ((Emp) obj).age==this.age;
     }
 
@@ -110,7 +110,7 @@ public class Emp implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        return ((Emp)o).getAge()-this.age;
+    public int compareTo(Emp o) {
+        return this.hiredate.compareTo(o.hiredate);
     }
 }
